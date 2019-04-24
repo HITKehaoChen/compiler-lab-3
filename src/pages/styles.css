@@ -1,0 +1,185 @@
+/*code[class*='language-'],*/
+/*pre[class*='language-'] {*/
+/*    color: #37474f; !* base00 *!*/
+/*    font-family: 'Roboto Mono', Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono',*/
+/*    monospace;*/
+/*    text-align: left;*/
+/*    white-space: pre;*/
+/*    word-spacing: normal;*/
+/*    word-break: normal;*/
+/*    word-wrap: normal;*/
+
+/*    line-height: 1.5;*/
+
+/*    -moz-tab-size: 4;*/
+/*    -o-tab-size: 4;*/
+/*    tab-size: 4;*/
+
+/*    -webkit-hyphens: none;*/
+/*    -moz-hyphens: none;*/
+/*    -ms-hyphens: none;*/
+/*    hyphens: none;*/
+/*}*/
+
+/*!*pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,*!*/
+/*!*code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {*!*/
+/*!*background: #073642; !* base02 *!*!*/
+/*!*}*!*/
+
+/*!*pre[class*="language-"]::selection, pre[class*="language-"] ::selection,*!*/
+/*!*code[class*="language-"]::selection, code[class*="language-"] ::selection {*!*/
+/*!*background: #073642; !* base02 *!*!*/
+/*!*}*!*/
+
+/*!* Code blocks *!*/
+/*pre[class*='language-'] {*/
+/*    padding: 1em;*/
+/*    margin: 0.5em 0;*/
+/*    overflow: auto;*/
+/*    border-radius: 0.3em;*/
+/*}*/
+
+/*:not(pre) > code[class*='language-'],*/
+/*pre[class*='language-'] {*/
+/*    background-color: #f7f7f7; !* base3 *!*/
+/*}*/
+
+/*!* Inline code *!*/
+/*:not(pre) > code[class*='language-'] {*/
+/*    padding: 0.1em;*/
+/*    border-radius: 0.3em;*/
+/*}*/
+
+/*.token.comment,*/
+/*.token.prolog,*/
+/*.token.doctype,*/
+/*.token.cdata {*/
+/*    color: #d81b60; !* base1 *!*/
+/*}*/
+
+/*.token.punctuation {*/
+/*    color: #586e75; !* base01 *!*/
+/*}*/
+
+/*.namespace {*/
+/*    opacity: 0.7;*/
+/*}*/
+
+/*.token.property,*/
+/*.token.tag,*/
+/*.token.boolean,*/
+/*.token.number,*/
+/*.token.constant,*/
+/*.token.symbol,*/
+/*.token.deleted {*/
+/*    color: #268bd2; !* blue *!*/
+/*}*/
+
+/*.token.selector,*/
+/*.token.attr-name,*/
+/*.token.string,*/
+/*.token.char,*/
+/*.token.builtin,*/
+/*.token.url,*/
+/*.token.inserted {*/
+/*    color: #0d904f; !* cyan *!*/
+/*}*/
+
+/*.token.entity {*/
+/*    color: #657b83; !* base00 *!*/
+/*    background: #eee8d5; !* base2 *!*/
+/*}*/
+
+/*.token.atrule,*/
+/*.token.attr-value,*/
+/*.token.keyword {*/
+/*    color: #3b78e7; !* green *!*/
+/*}*/
+
+/*.token.function {*/
+/*    color: #37474f; !* yellow *!*/
+/*}*/
+
+/*.token.regex,*/
+/*.token.important,*/
+/*.token.variable {*/
+/*    color: #cb4b16; !* orange *!*/
+/*}*/
+
+/*.token.important,*/
+/*.token.bold {*/
+/*    font-weight: bold;*/
+/*}*/
+
+/*.token.italic {*/
+/*    font-style: italic;*/
+/*}*/
+
+/*.token.entity {*/
+/*    cursor: help;*/
+/*}*/
+
+.container__editor textarea {
+  outline: 0;
+}
+
+/* Syntax highlighting */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #90a4ae;
+}
+.token.punctuation {
+  color: #9e9e9e;
+}
+.namespace {
+  opacity: 0.7;
+}
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: #e91e63;
+}
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: #4caf50;
+}
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  color: #795548;
+}
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: #3f51b5;
+}
+.token.function {
+  color: #f44336;
+}
+.token.regex,
+.token.important,
+.token.variable {
+  color: #ff9800;
+}
+.token.important,
+.token.bold {
+  font-weight: bold;
+}
+.token.italic {
+  font-style: italic;
+}
+.token.entity {
+  cursor: help;
+}
