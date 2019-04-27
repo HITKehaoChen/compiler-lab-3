@@ -60,11 +60,8 @@ export class ErrorProduction extends Production {
         symbol8,
         symbol9
       );
-      // @ts-ignore
       if (this.error === undefined) this.error = null;
-      // @ts-ignore
       if (this.solution === undefined) this.solution = null;
-      // @ts-ignore
       if (this.error === undefined) this.error = null;
       if (this.solution === undefined) this.solution = null;
     } else if (
