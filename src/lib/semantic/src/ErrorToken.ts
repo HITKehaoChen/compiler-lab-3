@@ -18,12 +18,8 @@ export class ErrorToken extends Token {
       (typeof value === "string" || value === null) &&
       source === undefined
     ) {
-      let __args = arguments;
-      let source: any = __args[1];
+      let source: any = arguments[1];
       super(name, source);
     } else throw new Error("invalid overload");
   }
 }
-
-// ErrorToken['__class'] = 'ErrorToken';
-// ErrorToken['__interfaces'] = ['java.lang.Cloneable'];

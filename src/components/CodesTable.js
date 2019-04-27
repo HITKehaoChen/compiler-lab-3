@@ -19,7 +19,7 @@ const styles = theme => ({
   }
 });
 
-function AnalysisTable(props) {
+function CodesTable(props) {
   const { classes, data, ...other } = props;
 
   return (
@@ -27,8 +27,8 @@ function AnalysisTable(props) {
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
-            <TableCell>Productions</TableCell>
-            <TableCell>Process</TableCell>
+            <TableCell>Index</TableCell>
+            <TableCell>Three address code</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -46,9 +46,9 @@ function AnalysisTable(props) {
   );
 }
 
-AnalysisTable.propTypes = {
+CodesTable.propTypes = {
   classes: PropTypes.object.isRequired,
   data: PropTypes.array.isRequired
 };
 
-export default withStyles(styles)(AnalysisTable);
+export default withStyles(styles)(CodesTable);

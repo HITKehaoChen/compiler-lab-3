@@ -17,10 +17,10 @@ let mainWindow;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    minHeight: 600,
-    minWidth: 500,
-    width: 900,
-    height: 680,
+    minHeight: 1000,
+    minWidth: 800,
+    width: 1000,
+    height: 800,
     titleBarStyle: "hiddenInset"
   });
   mainWindow.loadURL(

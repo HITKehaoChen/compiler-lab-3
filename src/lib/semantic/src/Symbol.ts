@@ -40,34 +40,18 @@ export class Symbol {
           this.type = type;
           this.first = <any>[];
           if (
-            (c => (c.charCodeAt == null ? <any>c : c.charCodeAt(0)))(type) ==
+            (c => (c.charCodeAt == null ? <any>c : c.charCodeAt(0)))(type) ===
             "N".charCodeAt(0)
           ) {
             this.follow = <any>[];
           } else if (
-            (c => (c.charCodeAt == null ? <any>c : c.charCodeAt(0)))(type) ==
+            (c => (c.charCodeAt == null ? <any>c : c.charCodeAt(0)))(type) ===
             "T".charCodeAt(0)
           ) {
-            /* add */
-            this.first.push(name) > 0;
+            this.first.push(name);
             this.follow = null;
           } else {
-            throw Object.defineProperty(
-              new Error(
-                "\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd"
-              ),
-              "__classes",
-              {
-                configurable: true,
-                value: [
-                  "java.lang.Throwable",
-                  "java.lang.Object",
-                  "java.lang.RuntimeException",
-                  "java.lang.IllegalArgumentException",
-                  "java.lang.Exception"
-                ]
-              }
-            );
+            throw new Error("非法的符号类型");
           }
         })();
       }
@@ -98,34 +82,19 @@ export class Symbol {
         this.type = type;
         this.first = <any>[];
         if (
-          (c => (c.charCodeAt == null ? <any>c : c.charCodeAt(0)))(type) ==
+          (c => (c.charCodeAt == null ? <any>c : c.charCodeAt(0)))(type) ===
           "N".charCodeAt(0)
         ) {
           this.follow = <any>[];
         } else if (
-          (c => (c.charCodeAt == null ? <any>c : c.charCodeAt(0)))(type) ==
+          (c => (c.charCodeAt == null ? <any>c : c.charCodeAt(0)))(type) ===
           "T".charCodeAt(0)
         ) {
           /* add */
-          this.first.push(name) > 0;
+          this.first.push(name);
           this.follow = null;
         } else {
-          throw Object.defineProperty(
-            new Error(
-              "\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd"
-            ),
-            "__classes",
-            {
-              configurable: true,
-              value: [
-                "java.lang.Throwable",
-                "java.lang.Object",
-                "java.lang.RuntimeException",
-                "java.lang.IllegalArgumentException",
-                "java.lang.Exception"
-              ]
-            }
-          );
+          throw new Error("非法的符号类型");
         }
       })();
     } else throw new Error("invalid overload");
@@ -135,13 +104,9 @@ export class Symbol {
     return this.name;
   }
 
-  public getHigher_name(): string {
-    return this.higher_name;
-  }
-
   public isTerminal(): boolean {
     if (
-      (c => (c.charCodeAt == null ? <any>c : c.charCodeAt(0)))(this.type) ==
+      (c => (c.charCodeAt == null ? <any>c : c.charCodeAt(0)))(this.type) ===
       "N".charCodeAt(0)
     )
       return false;
@@ -164,24 +129,8 @@ export class Symbol {
           return o1 === o2;
         }
       })(arr_name.toUpperCase(), "FOLLOW")) arr = this.follow;
-    else
-      throw Object.defineProperty(
-        new Error(
-          "\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd"
-        ),
-        "__classes",
-        {
-          configurable: true,
-          value: [
-            "java.lang.Throwable",
-            "java.lang.Object",
-            "java.lang.RuntimeException",
-            "java.lang.IllegalArgumentException",
-            "java.lang.Exception"
-          ]
-        }
-      );
-    for (let i: number = 0; i < /* size */ <number>arr.length; i++) {
+    else throw new Error("非法的集合名");
+    for (let i: number = 0; i < <number>arr.length; i++) {
       {
         if (/* equals */ <any>((o1: any, o2: any) => {
             if (o1 && o1.equals) {
@@ -189,7 +138,7 @@ export class Symbol {
             } else {
               return o1 === o2;
             }
-          })(/* get */ arr[i], sym_name)) return true;
+          })(arr[i], sym_name)) return true;
       }
     }
     return false;

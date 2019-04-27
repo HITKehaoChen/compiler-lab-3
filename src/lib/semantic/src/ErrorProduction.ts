@@ -260,8 +260,7 @@ export class ErrorProduction extends Production {
       symbol8 === undefined &&
       symbol9 === undefined
     ) {
-      let __args = arguments;
-      let father: any = __args[0];
+      let father: any = arguments[0];
       super();
       if (this.error === undefined) this.error = null;
       if (this.solution === undefined) this.solution = null;
@@ -275,5 +274,3 @@ export class ErrorProduction extends Production {
     } else throw new Error("invalid overload");
   }
 }
-
-ErrorProduction["__class"] = "ErrorProduction";

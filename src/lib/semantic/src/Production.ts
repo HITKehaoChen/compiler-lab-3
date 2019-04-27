@@ -21,7 +21,7 @@ export class Production {
    */
   public toString(): string {
     let ret: string = this.left + " -->";
-    if (this.right.length === 0) ret += " \ufffd\ufffd";
+    if (this.right.length === 0) ret += " ξ";
     for (let i: number = 0; i < this.right.length; i++) {
       {
         ret += " " + this.right[i];

@@ -45,7 +45,7 @@ const styles = theme => ({
 
   [theme.breakpoints.up("md")]: {
     root: {
-      maxWidth: theme.breakpoints.values.md * 0.875
+      maxWidth: theme.breakpoints.values.lg
     }
   }
 });

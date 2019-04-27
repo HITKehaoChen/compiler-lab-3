@@ -141,7 +141,7 @@ export class MyScanner {
             ) === "\r".charCodeAt(0)
           ) {
             /* add */
-            list.push(new Token("ENTER", null)) > 0;
+            list.push(new Token("ENTER", null));
             begin_pos = this.pos;
           } else if (
             (c => (c.charCodeAt == null ? <any>c : c.charCodeAt(0)))(
@@ -149,7 +149,7 @@ export class MyScanner {
             ) === "(".charCodeAt(0)
           ) {
             /* add */
-            list.push(new Token("(", "(")) > 0;
+            list.push(new Token("(", "("));
             begin_pos = this.pos;
           } else if (
             (c => (c.charCodeAt == null ? <any>c : c.charCodeAt(0)))(
@@ -157,7 +157,7 @@ export class MyScanner {
             ) === ")".charCodeAt(0)
           ) {
             /* add */
-            list.push(new Token(")", ")")) > 0;
+            list.push(new Token(")", ")"));
             begin_pos = this.pos;
           } else if (
             (c => (c.charCodeAt == null ? <any>c : c.charCodeAt(0)))(
@@ -165,7 +165,7 @@ export class MyScanner {
             ) === "[".charCodeAt(0)
           ) {
             /* add */
-            list.push(new Token("[", "[")) > 0;
+            list.push(new Token("[", "["));
             begin_pos = this.pos;
           } else if (
             (c => (c.charCodeAt == null ? <any>c : c.charCodeAt(0)))(
@@ -173,7 +173,7 @@ export class MyScanner {
             ) === "]".charCodeAt(0)
           ) {
             /* add */
-            list.push(new Token("]", "]")) > 0;
+            list.push(new Token("]", "]"));
             begin_pos = this.pos;
           } else if (
             (c => (c.charCodeAt == null ? <any>c : c.charCodeAt(0)))(
@@ -181,7 +181,7 @@ export class MyScanner {
             ) === ".".charCodeAt(0)
           ) {
             /* add */
-            list.push(new Token(".", ".")) > 0;
+            list.push(new Token(".", "."));
             begin_pos = this.pos;
           } else if (
             (c => (c.charCodeAt == null ? <any>c : c.charCodeAt(0)))(
@@ -189,7 +189,7 @@ export class MyScanner {
             ) === "~".charCodeAt(0)
           ) {
             /* add */
-            list.push(new Token("~", "~")) > 0;
+            list.push(new Token("~", "~"));
             begin_pos = this.pos;
           } else if (
             (c => (c.charCodeAt == null ? <any>c : c.charCodeAt(0)))(
@@ -197,7 +197,7 @@ export class MyScanner {
             ) === "?".charCodeAt(0)
           ) {
             /* add */
-            list.push(new Token("?", "?")) > 0;
+            list.push(new Token("?", "?"));
             begin_pos = this.pos;
           } else if (
             (c => (c.charCodeAt == null ? <any>c : c.charCodeAt(0)))(
@@ -205,7 +205,7 @@ export class MyScanner {
             ) === ":".charCodeAt(0)
           ) {
             /* add */
-            list.push(new Token(":", ":")) > 0;
+            list.push(new Token(":", ":"));
             begin_pos = this.pos;
           } else if (
             (c => (c.charCodeAt == null ? <any>c : c.charCodeAt(0)))(
@@ -213,7 +213,7 @@ export class MyScanner {
             ) === ",".charCodeAt(0)
           ) {
             /* add */
-            list.push(new Token(",", ",")) > 0;
+            list.push(new Token(",", ","));
             begin_pos = this.pos;
           } else if (
             (c => (c.charCodeAt == null ? <any>c : c.charCodeAt(0)))(
@@ -221,7 +221,7 @@ export class MyScanner {
             ) === "{".charCodeAt(0)
           ) {
             /* add */
-            list.push(new Token("{", "{")) > 0;
+            list.push(new Token("{", "{"));
             begin_pos = this.pos;
           } else if (
             (c => (c.charCodeAt == null ? <any>c : c.charCodeAt(0)))(
@@ -229,7 +229,7 @@ export class MyScanner {
             ) === "}".charCodeAt(0)
           ) {
             /* add */
-            list.push(new Token("}", "}")) > 0;
+            list.push(new Token("}", "}"));
             begin_pos = this.pos;
           } else if (
             (c => (c.charCodeAt == null ? <any>c : c.charCodeAt(0)))(
@@ -237,7 +237,7 @@ export class MyScanner {
             ) === ";".charCodeAt(0)
           ) {
             /* add */
-            list.push(new Token(";", ";")) > 0;
+            list.push(new Token(";", ";"));
             begin_pos = this.pos;
           } else if (
             (c => (c.charCodeAt == null ? <any>c : c.charCodeAt(0)))(
@@ -314,12 +314,8 @@ export class MyScanner {
           } else {
             /* add */
             list.push(
-              new ErrorToken(
-                "ERROR",
-                "\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd",
-                next_char + ""
-              )
-            ) > 0;
+              new ErrorToken("ERROR", "非法的开始字符", next_char + "")
+            );
             begin_pos = this.pos;
           }
         } else if (/* equals */ <any>((o1: any, o2: any) => {
@@ -382,7 +378,7 @@ export class MyScanner {
             /* add */
             list.push(
               new Token("unsigned", this.source.substring(begin_pos, this.pos))
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           } else if (
@@ -401,7 +397,7 @@ export class MyScanner {
                 ConstantType.INT,
                 this.source.substring(begin_pos, --this.pos)
               )
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           }
@@ -447,7 +443,7 @@ export class MyScanner {
             /* add */
             list.push(
               new Token("unsigned", this.source.substring(begin_pos, this.pos))
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           } else if (
@@ -470,7 +466,7 @@ export class MyScanner {
                 ConstantType.INT,
                 this.source.substring(begin_pos, --this.pos)
               )
-            ) > 0;
+            );
           } else {
             /* add */
             list.push(
@@ -478,7 +474,7 @@ export class MyScanner {
                 ConstantType.INT,
                 this.source.substring(begin_pos, --this.pos)
               )
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           }
@@ -533,7 +529,7 @@ export class MyScanner {
             /* add */
             list.push(
               new Token("unsigned", this.source.substring(begin_pos, this.pos))
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           } else if (
@@ -556,7 +552,7 @@ export class MyScanner {
                 ConstantType.DOUBLE,
                 this.source.substring(begin_pos, this.pos)
               )
-            ) > 0;
+            );
           } else {
             /* add */
             list.push(
@@ -564,7 +560,7 @@ export class MyScanner {
                 ConstantType.INT,
                 this.source.substring(begin_pos, --this.pos)
               )
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           }
@@ -601,10 +597,10 @@ export class MyScanner {
             list.push(
               new ErrorToken(
                 "ERROR",
-                "\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd",
+                "不完整的十六进制表示形式",
                 this.source.substring(begin_pos, --this.pos)
               )
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           }
@@ -647,7 +643,7 @@ export class MyScanner {
             /* add */
             list.push(
               new Token("unsigned", this.source.substring(begin_pos, this.pos))
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           } else if (
@@ -670,7 +666,7 @@ export class MyScanner {
                 ConstantType.DOUBLE,
                 this.source.substring(begin_pos, --this.pos)
               )
-            ) > 0;
+            );
           } else {
             /* add */
             list.push(
@@ -678,7 +674,7 @@ export class MyScanner {
                 ConstantType.INT,
                 this.source.substring(begin_pos, --this.pos)
               )
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           }
@@ -703,10 +699,10 @@ export class MyScanner {
             list.push(
               new ErrorToken(
                 "ERROR",
-                "\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd",
+                "不完整的小数表示形式",
                 this.source.substring(begin_pos, --this.pos)
               )
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           }
@@ -749,7 +745,7 @@ export class MyScanner {
                 ConstantType.FLOAT,
                 this.source.substring(begin_pos, this.pos)
               )
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           } else if (
@@ -766,7 +762,7 @@ export class MyScanner {
                 ConstantType.LONG_DOUBLE,
                 this.source.substring(begin_pos, this.pos)
               )
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           } else if (
@@ -780,7 +776,7 @@ export class MyScanner {
                 ConstantType.DOUBLE,
                 this.source.substring(begin_pos, this.pos)
               )
-            ) > 0;
+            );
           } else {
             /* add */
             list.push(
@@ -788,7 +784,7 @@ export class MyScanner {
                 ConstantType.DOUBLE,
                 this.source.substring(begin_pos, --this.pos)
               )
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           }
@@ -828,10 +824,10 @@ export class MyScanner {
             list.push(
               new ErrorToken(
                 "ERROR",
-                "\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd",
+                "非法的八进制数表示形式",
                 this.source.substring(begin_pos, --this.pos)
               )
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           }
@@ -865,10 +861,10 @@ export class MyScanner {
             list.push(
               new ErrorToken(
                 "ERROR",
-                "\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd",
+                "不完整的指数表示形式",
                 this.source.substring(begin_pos, --this.pos)
               )
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           }
@@ -893,10 +889,10 @@ export class MyScanner {
             list.push(
               new ErrorToken(
                 "ERROR",
-                "\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd",
+                "不完整的指数表示形式",
                 this.source.substring(begin_pos, --this.pos)
               )
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           }
@@ -930,7 +926,7 @@ export class MyScanner {
                 ConstantType.FLOAT,
                 this.source.substring(begin_pos, this.pos)
               )
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           } else if (
@@ -947,7 +943,7 @@ export class MyScanner {
                 ConstantType.LONG_DOUBLE,
                 this.source.substring(begin_pos, this.pos)
               )
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           } else {
@@ -957,7 +953,7 @@ export class MyScanner {
                 ConstantType.DOUBLE,
                 this.source.substring(begin_pos, --this.pos)
               )
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           }
@@ -982,7 +978,7 @@ export class MyScanner {
                 ConstantType.LONG_UNSIGNED,
                 this.source.substring(begin_pos, this.pos)
               )
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           } else {
@@ -992,7 +988,7 @@ export class MyScanner {
                 ConstantType.LONG,
                 this.source.substring(begin_pos, --this.pos)
               )
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           }
@@ -1024,10 +1020,10 @@ export class MyScanner {
             list.push(
               new ErrorToken(
                 "ERROR",
-                "\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd",
+                "不完整的字符表示形式",
                 this.source.substring(begin_pos, --this.pos)
               )
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           } else if (
@@ -1039,10 +1035,10 @@ export class MyScanner {
             list.push(
               new ErrorToken(
                 "ERROR",
-                "\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd",
+                "不完整的字符表示形式",
                 this.source.substring(begin_pos, --this.pos)
               )
-            ) > 0;
+            );
           } else {
             this.status = "BB";
           }
@@ -1064,7 +1060,7 @@ export class MyScanner {
                 ConstantType.CHAR,
                 this.source.substring(begin_pos, this.pos)
               )
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           } else {
@@ -1072,10 +1068,10 @@ export class MyScanner {
             list.push(
               new ErrorToken(
                 "ERROR",
-                "\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd",
+                "错误的字符表示形式",
                 this.source.substring(begin_pos, --this.pos)
               )
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           }
@@ -1122,10 +1118,10 @@ export class MyScanner {
             list.push(
               new ErrorToken(
                 "ERROR",
-                "\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd",
+                "不完整的字符表示形式",
                 this.source.substring(begin_pos, --this.pos)
               )
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           } else if (
@@ -1137,10 +1133,10 @@ export class MyScanner {
             list.push(
               new ErrorToken(
                 "ERROR",
-                "\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd",
+                "不完整的字符表示形式",
                 this.source.substring(begin_pos, --this.pos)
               )
-            ) > 0;
+            );
           } else {
             this.status = "BEG";
           }
@@ -1162,7 +1158,7 @@ export class MyScanner {
                 ConstantType.CHAR,
                 this.source.substring(begin_pos, this.pos)
               )
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           } else {
@@ -1170,10 +1166,10 @@ export class MyScanner {
             list.push(
               new ErrorToken(
                 "ERROR",
-                "\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd",
+                "错误的字符表示形式",
                 this.source.substring(begin_pos, --this.pos)
               )
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           }
@@ -1195,7 +1191,7 @@ export class MyScanner {
                 ConstantType.CHAR,
                 this.source.substring(begin_pos, this.pos)
               )
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           } else if (
@@ -1212,10 +1208,10 @@ export class MyScanner {
             list.push(
               new ErrorToken(
                 "ERROR",
-                "\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd",
+                "不完整的字符表示形式",
                 this.source.substring(begin_pos, --this.pos)
               )
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           }
@@ -1237,7 +1233,7 @@ export class MyScanner {
                 ConstantType.CHAR,
                 this.source.substring(begin_pos, this.pos)
               )
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           } else if (
@@ -1254,10 +1250,10 @@ export class MyScanner {
             list.push(
               new ErrorToken(
                 "ERROR",
-                "\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd",
+                "不完整的字符表示形式",
                 this.source.substring(begin_pos, --this.pos)
               )
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           }
@@ -1279,7 +1275,7 @@ export class MyScanner {
                 ConstantType.CHAR,
                 this.source.substring(begin_pos, this.pos)
               )
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           } else {
@@ -1287,10 +1283,10 @@ export class MyScanner {
             list.push(
               new ErrorToken(
                 "ERROR",
-                "\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd",
+                "不完整的字符表示形式",
                 this.source.substring(begin_pos, --this.pos)
               )
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           }
@@ -1336,10 +1332,10 @@ export class MyScanner {
             list.push(
               new ErrorToken(
                 "ERROR",
-                "\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd",
+                "不完整的字符表示形式",
                 this.source.substring(begin_pos, --this.pos)
               )
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           }
@@ -1361,7 +1357,7 @@ export class MyScanner {
                 ConstantType.CHAR,
                 this.source.substring(begin_pos, this.pos)
               )
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           } else if (
@@ -1390,10 +1386,10 @@ export class MyScanner {
             list.push(
               new ErrorToken(
                 "ERROR",
-                "\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd",
+                "不完整的字符表示形式",
                 this.source.substring(begin_pos, --this.pos)
               )
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           }
@@ -1415,7 +1411,7 @@ export class MyScanner {
                 ConstantType.CHAR,
                 this.source.substring(begin_pos, this.pos)
               )
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           } else {
@@ -1423,10 +1419,10 @@ export class MyScanner {
             list.push(
               new ErrorToken(
                 "ERROR",
-                "\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd",
+                "不完整的字符表示形式",
                 this.source.substring(begin_pos, --this.pos)
               )
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           }
@@ -1448,7 +1444,7 @@ export class MyScanner {
                 ConstantType.STRING,
                 this.source.substring(begin_pos, this.pos)
               )
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           } else if (
@@ -1469,10 +1465,10 @@ export class MyScanner {
             list.push(
               new ErrorToken(
                 "ERROR",
-                "\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd",
+                "不完整的字符串表示形式",
                 this.source.substring(begin_pos, --this.pos)
               )
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           } else if (
@@ -1484,10 +1480,10 @@ export class MyScanner {
             list.push(
               new ErrorToken(
                 "ERROR",
-                "\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd",
+                "不完整的字符串表示形式",
                 this.source.substring(begin_pos, --this.pos)
               )
-            ) > 0;
+            );
           } else {
             continue;
           }
@@ -1510,10 +1506,10 @@ export class MyScanner {
             list.push(
               new ErrorToken(
                 "ERROR",
-                "\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd",
+                "不完整的字符串表示形式",
                 this.source.substring(begin_pos, --this.pos)
               )
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           } else {
@@ -1563,7 +1559,7 @@ export class MyScanner {
                     }
                   })(this.keys[i], temp)) {
                   /* add */
-                  list.push(new Token(temp.toUpperCase(), temp)) > 0;
+                  list.push(new Token(temp.toUpperCase(), temp));
                   flag = false;
                   break;
                 }
@@ -1580,18 +1576,14 @@ export class MyScanner {
                   })(this.rwords[i], temp)) {
                   /* add */
                   list.push(
-                    new ErrorToken(
-                      "ERROR",
-                      "\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd",
-                      temp
-                    )
-                  ) > 0;
+                    new ErrorToken("ERROR", "保留字不能作为标示符使用", temp)
+                  );
                   flag = false;
                   break;
                 }
               }
             }
-            if (flag) /* add */ list.push(new Token("id", temp)) > 0;
+            if (flag) /* add */ list.push(new Token("id", temp));
             begin_pos = this.pos;
             this.status = "S";
           }
@@ -1610,7 +1602,7 @@ export class MyScanner {
             /* add */
             list.push(
               new Token("->", this.source.substring(begin_pos, this.pos))
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           } else if (
@@ -1621,7 +1613,7 @@ export class MyScanner {
             /* add */
             list.push(
               new Token("-=", this.source.substring(begin_pos, this.pos))
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           } else if (
@@ -1632,14 +1624,14 @@ export class MyScanner {
             /* add */
             list.push(
               new Token("--", this.source.substring(begin_pos, this.pos))
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           } else {
             /* add */
             list.push(
               new Token("-", this.source.substring(begin_pos, --this.pos))
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           }
@@ -1658,7 +1650,7 @@ export class MyScanner {
             /* add */
             list.push(
               new Token("++", this.source.substring(begin_pos, this.pos))
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           } else if (
@@ -1669,14 +1661,14 @@ export class MyScanner {
             /* add */
             list.push(
               new Token("+=", this.source.substring(begin_pos, this.pos))
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           } else {
             /* add */
             list.push(
               new Token("+", this.source.substring(begin_pos, --this.pos))
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           }
@@ -1701,14 +1693,14 @@ export class MyScanner {
             /* add */
             list.push(
               new Token("<=", this.source.substring(begin_pos, this.pos))
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           } else {
             /* add */
             list.push(
               new Token("<", this.source.substring(begin_pos, --this.pos))
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           }
@@ -1727,14 +1719,14 @@ export class MyScanner {
             /* add */
             list.push(
               new Token("<<=", this.source.substring(begin_pos, this.pos))
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           } else {
             /* add */
             list.push(
               new Token("<<", this.source.substring(begin_pos, --this.pos))
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           }
@@ -1759,14 +1751,14 @@ export class MyScanner {
             /* add */
             list.push(
               new Token(">=", this.source.substring(begin_pos, this.pos))
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           } else {
             /* add */
             list.push(
               new Token(">", this.source.substring(begin_pos, --this.pos))
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           }
@@ -1785,14 +1777,14 @@ export class MyScanner {
             /* add */
             list.push(
               new Token(">>=", this.source.substring(begin_pos, this.pos))
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           } else {
             /* add */
             list.push(
               new Token(">>", this.source.substring(begin_pos, --this.pos))
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           }
@@ -1811,14 +1803,14 @@ export class MyScanner {
             /* add */
             list.push(
               new Token("==", this.source.substring(begin_pos, this.pos))
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           } else {
             /* add */
             list.push(
               new Token("=", this.source.substring(begin_pos, --this.pos))
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           }
@@ -1837,7 +1829,7 @@ export class MyScanner {
             /* add */
             list.push(
               new Token("&&", this.source.substring(begin_pos, this.pos))
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           } else if (
@@ -1848,14 +1840,14 @@ export class MyScanner {
             /* add */
             list.push(
               new Token("&=", this.source.substring(begin_pos, this.pos))
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           } else {
             /* add */
             list.push(
               new Token("&", this.source.substring(begin_pos, --this.pos))
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           }
@@ -1874,7 +1866,7 @@ export class MyScanner {
             /* add */
             list.push(
               new Token("||", this.source.substring(begin_pos, this.pos))
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           } else if (
@@ -1885,14 +1877,14 @@ export class MyScanner {
             /* add */
             list.push(
               new Token("|=", this.source.substring(begin_pos, this.pos))
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           } else {
             /* add */
             list.push(
               new Token("|", this.source.substring(begin_pos, --this.pos))
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           }
@@ -1911,14 +1903,14 @@ export class MyScanner {
             /* add */
             list.push(
               new Token("*=", this.source.substring(begin_pos, this.pos))
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           } else {
             /* add */
             list.push(
               new Token("*", this.source.substring(begin_pos, --this.pos))
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           }
@@ -1937,14 +1929,14 @@ export class MyScanner {
             /* add */
             list.push(
               new Token("%=", this.source.substring(begin_pos, this.pos))
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           } else {
             /* add */
             list.push(
               new Token("%", this.source.substring(begin_pos, --this.pos))
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           }
@@ -1963,14 +1955,14 @@ export class MyScanner {
             /* add */
             list.push(
               new Token("^=", this.source.substring(begin_pos, this.pos))
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           } else {
             /* add */
             list.push(
               new Token("^", this.source.substring(begin_pos, --this.pos))
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           }
@@ -1989,14 +1981,14 @@ export class MyScanner {
             /* add */
             list.push(
               new Token("!=", this.source.substring(begin_pos, this.pos))
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           } else {
             /* add */
             list.push(
               new Token("!", this.source.substring(begin_pos, --this.pos))
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           }
@@ -2027,14 +2019,14 @@ export class MyScanner {
             /* add */
             list.push(
               new Token("/=", this.source.substring(begin_pos, this.pos))
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           } else {
             /* add */
             list.push(
               new Token("/", this.source.substring(begin_pos, --this.pos))
-            ) > 0;
+            );
             begin_pos = this.pos;
             this.status = "S";
           }
@@ -2056,7 +2048,7 @@ export class MyScanner {
             begin_pos = this.pos;
             this.status = "S";
             /* add */
-            list.push(new Token("ENTER", null)) > 0;
+            list.push(new Token("ENTER", null));
           } else if (
             (c => (c.charCodeAt == null ? <any>c : c.charCodeAt(0)))(
               next_char
@@ -2088,10 +2080,10 @@ export class MyScanner {
             list.push(
               new ErrorToken(
                 "ERROR",
-                "\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd'*/'\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd",
+                "缺少'*/'作为注释的结束符",
                 this.source.substring(begin_pos, --this.pos)
               )
-            ) > 0;
+            );
           } else {
             continue;
           }
@@ -2118,10 +2110,10 @@ export class MyScanner {
             list.push(
               new ErrorToken(
                 "ERROR",
-                "\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd'*/'\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd",
+                "缺少'*/'作为注释的结束符",
                 this.source.substring(begin_pos, --this.pos)
               )
-            ) > 0;
+            );
           } else if (
             (c => (c.charCodeAt == null ? <any>c : c.charCodeAt(0)))(
               next_char
@@ -2153,5 +2145,3 @@ export class MyScanner {
     }
   }
 }
-
-MyScanner["__class"] = "MyScanner";

@@ -88,7 +88,7 @@ export class Token {
           if (
             (c => (c.charCodeAt == null ? <any>c : c.charCodeAt(0)))(
               source.charAt(0)
-            ) == "0".charCodeAt(0)
+            ) === "0".charCodeAt(0)
           ) {
             if (source.length === 1 || /* equals */ <any>((
                 o1: any,
@@ -148,10 +148,10 @@ export class Token {
             if (
               (c => (c.charCodeAt == null ? <any>c : c.charCodeAt(0)))(
                 source.charAt(1)
-              ) == "x".charCodeAt(0) ||
+              ) === "x".charCodeAt(0) ||
               (c => (c.charCodeAt == null ? <any>c : c.charCodeAt(0)))(
                 source.charAt(1)
-              ) == "X".charCodeAt(0)
+              ) === "X".charCodeAt(0)
             ) {
               k = 16;
               begin = 2;
@@ -166,24 +166,7 @@ export class Token {
               k = 8;
               begin = 1;
             } else {
-              throw Object.defineProperty(
-                new Error(
-                  "\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd'" +
-                    source +
-                    "'\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd"
-                ),
-                "__classes",
-                {
-                  configurable: true,
-                  value: [
-                    "java.lang.Throwable",
-                    "java.lang.Object",
-                    "java.lang.RuntimeException",
-                    "java.lang.IllegalArgumentException",
-                    "java.lang.Exception"
-                  ]
-                }
-              );
+              throw new Error("整形常量" + source + "'的第二个字符不合法");
             }
           } else if (
             (c => (c.charCodeAt == null ? <any>c : c.charCodeAt(0)))(
@@ -196,24 +179,7 @@ export class Token {
             k = 10;
             begin = 0;
           } else {
-            throw Object.defineProperty(
-              new Error(
-                "\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd'" +
-                  source +
-                  "'\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd"
-              ),
-              "__classes",
-              {
-                configurable: true,
-                value: [
-                  "java.lang.Throwable",
-                  "java.lang.Object",
-                  "java.lang.RuntimeException",
-                  "java.lang.IllegalArgumentException",
-                  "java.lang.Exception"
-                ]
-              }
-            );
+            throw new Error("整形常量'" + source + "'的首字符必须是数字");
           }
           let ret = 0;
           for (let i: number = begin; i < source.length; i++) {
@@ -254,10 +220,10 @@ export class Token {
           else if (
             (c => (c.charCodeAt == null ? <any>c : c.charCodeAt(0)))(
               source.charAt(p2 + 1)
-            ) == "-".charCodeAt(0) ||
+            ) === "-".charCodeAt(0) ||
             (c => (c.charCodeAt == null ? <any>c : c.charCodeAt(0)))(
               source.charAt(p2 + 1)
-            ) == "+".charCodeAt(0)
+            ) === "+".charCodeAt(0)
           )
             p3++;
           let zhengbu = 0;
@@ -291,7 +257,7 @@ export class Token {
             p3 >= 0 &&
             (c => (c.charCodeAt == null ? <any>c : c.charCodeAt(0)))(
               source.charAt(p3)
-            ) == "-".charCodeAt(0)
+            ) === "-".charCodeAt(0)
           )
             zhishu = -zhishu;
           if (p3 < 0) zhishu = 0;
@@ -306,7 +272,7 @@ export class Token {
           if (
             (c => (c.charCodeAt == null ? <any>c : c.charCodeAt(0)))(
               source.charAt(1)
-            ) == "\\".charCodeAt(0)
+            ) === "\\".charCodeAt(0)
           ) {
             let ret = 0;
             let temp: string = source.charAt(2);
@@ -316,7 +282,7 @@ export class Token {
                 if (
                   (c => (c.charCodeAt == null ? <any>c : c.charCodeAt(0)))(
                     source.charAt(4)
-                  ) != "'".charCodeAt(0)
+                  ) !== "'".charCodeAt(0)
                 ) {
                   ret *= 16;
                   ret += Token.char_to_int(source.charAt(4));
@@ -359,7 +325,7 @@ export class Token {
                   if (
                     (c => (c.charCodeAt == null ? <any>c : c.charCodeAt(0)))(
                       source.charAt(3)
-                    ) != "'".charCodeAt(0)
+                    ) !== "'".charCodeAt(0)
                   ) {
                     ret *= 8;
                     ret +=
@@ -369,7 +335,7 @@ export class Token {
                     if (
                       (c => (c.charCodeAt == null ? <any>c : c.charCodeAt(0)))(
                         source.charAt(4)
-                      ) != "'".charCodeAt(0)
+                      ) !== "'".charCodeAt(0)
                     ) {
                       ret *= 8;
                       ret +=
