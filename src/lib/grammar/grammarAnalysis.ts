@@ -1,4 +1,6 @@
 import { Production } from "./production";
+
+import { once } from "./helper";
 // import * as fs from 'fs';
 // import * as util from "util";
 // import * as path from 'path';
@@ -10,9 +12,7 @@ const path = (window as any).require("path");
 util.promisify(fs.readFile);
 const process = (window as any).require("process");
 
-import { once } from "./helper";
-
-export class GrammerAnalysis {
+export class GrammarAnalysis {
   private productions: Production[] = [];
   private terminals: string[] = [];
   private nonTerminals: string[] = [];
@@ -38,7 +38,7 @@ export class GrammerAnalysis {
 
   readProductions = async () => {
     try {
-      const file = path.resolve(process.cwd(), "./src/lib/grammar.txt");
+      const file = path.resolve(process.cwd(), "./src/lib/grammar/grammar.txt");
       // const file = path.resolve(`${"grammar.txt"}`);
       const lineReader = readline.createInterface({
         input: fs.createReadStream(file)
@@ -59,7 +59,7 @@ export class GrammerAnalysis {
 
   setNonTerminals = async () => {
     try {
-      const file = path.resolve(process.cwd(), "./src/lib/grammar.txt");
+      const file = path.resolve(process.cwd(), "./src/lib/grammar/grammar.txt");
       const lineReader = readline.createInterface({
         input: fs.createReadStream(file)
       });
@@ -293,7 +293,10 @@ export class GrammerAnalysis {
     }
 
     try {
-      const file = path.resolve(process.cwd(), "./src/lib/analysisTable.txt");
+      const file = path.resolve(
+        process.cwd(),
+        "./src/lib/grammar/analysisTable.txt"
+      );
       fs.writeFileSync(file, content, "utf-8");
     } catch (e) {
       console.log(e);

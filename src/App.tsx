@@ -1,12 +1,15 @@
 import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
-// import { GrammerAnalysis } from "./lib/grammerAnalysis";
+// import { GrammarAnalysis } from "./lib/grammerAnalysis";
 // import { analyze } from "./lib/utils";
-import { Parser } from "./lib/Parser";
-import { analyze } from "./lib/utils";
-import { GrammerAnalysis } from "./lib/grammerAnalysis";
+import { Parser } from "./lib/grammar/Parser";
+import { analyze } from "./lib/grammar/utils";
+import { GrammarAnalysis } from "./lib/grammar/grammarAnalysis";
 // @ts-ignore
+
+import { MyScanner } from "./lib/semantic/src/scanner";
+import { GrammarCompiler } from "./lib/semantic/src/GrammarCompiler";
 
 class App extends Component {
   componentDidMount() {
@@ -29,7 +32,7 @@ class App extends Component {
         "\t}\n" +
         "}"
     );
-    const grammerAnalysis = new GrammerAnalysis();
+    const grammerAnalysis = new GrammarAnalysis();
     grammerAnalysis.grammarAnalyze().then(res => {
       console.log("tokenArray: ", tokenArray);
       const parser = new Parser(tokenArray);

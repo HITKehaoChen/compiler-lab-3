@@ -84,7 +84,10 @@ export class Parser {
 
   getPredictMap = async () => {
     try {
-      const file = path.resolve(process.cwd(), "./src/lib/analysisTable.txt");
+      const file = path.resolve(
+        process.cwd(),
+        "./src/lib/grammar/analysisTable.txt"
+      );
       const lineReader = readline.createInterface({
         input: fs.createReadStream(file)
       });

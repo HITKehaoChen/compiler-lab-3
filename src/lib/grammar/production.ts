@@ -2,7 +2,7 @@ export class Production {
   private _left: string;
   private _right: string[];
 
-  public select:string[] = [];
+  public select: string[] = [];
 
   constructor(left: string, right: string[]) {
     this._left = left;
