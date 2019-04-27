@@ -1,5 +1,5 @@
 {
-  "name": "compiler-lab-1",
+  "name": "compiler",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -72,6 +72,6 @@
     }
   },
   "build": {
-    "productName": "YourAppName"
+    "productName": "Compiler"
   }
 }
