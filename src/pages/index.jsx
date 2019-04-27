@@ -29,6 +29,7 @@ import { GrammarCompiler } from "../lib/semantic/src/GrammarCompiler";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import CodesTable from "../components/CodesTable";
+import IdTable from "../components/IdTable";
 
 require("prismjs/components/prism-c");
 
@@ -50,49 +51,6 @@ const styles = theme =>
     }
   });
 
-// const test = () => {
-//   let input =
-//     "int main() {\n" +
-//     "    int a;\n" +
-//     "    float b;\n" +
-//     "    int c;\n" +
-//     "    float e;\n" +
-//     "    c=10;\n" +
-//     "    q=5;\n" +
-//     "    if(c) {\n" +
-//     "        a = 1 + 10;\n" +
-//     "        b = 10.9 + 8.9;\n" +
-//     "    }\n" +
-//     "    b = 1.11 * 8.9;\n" +
-//     "    while(a) {\n" +
-//     "        b = 10.44;\n" +
-//     "        e = 990.45;\n" +
-//     "        c = 90;\n" +
-//     "    }\n" +
-//     "    c = 80;\n" +
-//     "}\n" +
-//     "\n" +
-//     "int func1 () {\n" +
-//     "}\n";
-//   /**
-//    System.out.println("input "+input);
-//    List<Token> token_list = scan.execute();
-//    System.out.println("TOKEN LIST: " + token_list);
-//    */
-//   const scan = new MyScanner(input);
-//   const tokenList = scan.execute();
-//   console.log(tokenList.length);
-//   console.log(tokenList);
-//
-//   const gc = new GrammarCompiler();
-//   gc.analysis(tokenList);
-//   const codes = gc.getCodes();
-//
-//   console.log(codes);
-// };
-//
-// test();
-
 class Index extends React.Component {
   state = {
     code: `
@@ -111,7 +69,8 @@ int main(){
 }
     `,
     result: [],
-    codes: []
+    codes: [],
+    ids: []
   };
 
   handleChange = name => event => {
@@ -134,10 +93,18 @@ int main(){
 
     console.log("codes", codes);
 
-    console.log("ids", gc.getIds());
-
     const res = codes.map((value, key) => ({ key, value }));
     this.setState({ codes: res });
+
+    const ids = gc
+      .getIds()
+      .map(id => ({
+        name: id.name,
+        type: id.type,
+        length: id.length,
+        memAddr: id.offset
+      }));
+    this.setState({ ids });
   };
 
   parse = () => {
@@ -167,48 +134,58 @@ int main(){
 
   render() {
     const { classes } = this.props;
-    const { code, result, codes } = this.state;
+    const { code, result, codes, ids } = this.state;
 
     return (
       <AppContent>
         <div>
-          <HeadLine />
-          <div style={{ marginTop: 12, overflow: "auto", maxHeight: "30vh" }}>
-            <Editor
-              autoFocus
-              placeholder="Type some code…"
-              value={this.state.code}
-              onValueChange={code => this.setState({ code })}
-              highlight={code => highlight(code, languages.c)}
-              padding={10}
-              className="container__editor"
-              style={{
-                fontFamily: "Roboto Mono, SF Mono, monospace",
-                fontSize: 14,
-                backgroundColor: "#f6f8fa"
-              }}
-            />
-          </div>
+          {/*<HeadLine />*/}
+          {/*<div style={{ marginTop: 12, overflow: "auto", maxHeight: "30vh" }}>*/}
+          <Grid
+            container
+            spacing={8}
+            style={{ marginTop: 12, overflow: "auto", maxHeight: "30vh" }}
+          >
+            <Grid item xs={12} sm={8} style={{ overflow: "auto" }}>
+              <Editor
+                autoFocus
+                placeholder="Type some code…"
+                value={this.state.code}
+                onValueChange={code => this.setState({ code })}
+                highlight={code => highlight(code, languages.c)}
+                padding={10}
+                className="container__editor"
+                style={{
+                  fontFamily: "Roboto Mono, SF Mono, monospace",
+                  fontSize: 14,
+                  backgroundColor: "#f6f8fa"
+                }}
+              />
+            </Grid>
+            <Grid item xs={12} sm={4} style={{ overflow: "auto" }}>
+              {ids.length > 0 && <IdTable data={ids} />}
+            </Grid>
+          </Grid>
+
+          {/*</div>*/}
           <Button
             variant={"outlined"}
-            style={{ width: "100%", margin: "16px 0" }}
+            style={{ width: "66.66667%", margin: "16px 0" }}
             onClick={this.run}
           >
             RUN
           </Button>
         </div>
 
-        <Grid container spacing={8} style={{ marginTop: 12, marginBottom: 12 }}>
-          <Grid item xs={12} sm={6} style={{ overflow: "auto" }}>
+        <Grid container spacing={8} style={{ marginBottom: 12 }}>
+          <Grid item xs={12} sm={8} style={{ overflow: "auto" }}>
             {result.length > 0 && <AnalysisTable data={result} />}
           </Grid>
-          <Grid item xs={12} sm={6} style={{ overflow: "auto" }}>
-            {result.length > 0 && <CodesTable data={codes} />}
+          <Grid item xs={12} sm={4} style={{ overflow: "auto" }}>
+            {codes.length > 0 && <CodesTable data={codes} />}
           </Grid>
-          {/*<Grid item xs={12} sm={6}>*/}
-          {/*  {result.length > 0 && (*/}
-          {/*    <AnalysisTable data={result} style={{ overflow: "auto" }} />*/}
-          {/*  )}*/}
+          {/*<Grid item xs={12} sm={4} style={{ overflow: "auto" }}>*/}
+          {/*  {ids.length > 0 && <IdTable data={ids} />}*/}
           {/*</Grid>*/}
         </Grid>
       </AppContent>

@@ -392,5 +392,3 @@ export class Production {
     } else throw new Error("invalid overload");
   }
 }
-
-// Production["__class"] = "Production";

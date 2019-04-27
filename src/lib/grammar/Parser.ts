@@ -45,7 +45,7 @@ export class Parser {
         }
         // log
         const prod = this.stack[this.stack.length - 1] + " -> " + right;
-        console.log("table4", prod, "PROCESS: ", process);
+        // console.log("table4", prod, "PROCESS: ", process);
         ret.push({ key: prod, value: process });
         // remove the out
         this.stack.pop();
