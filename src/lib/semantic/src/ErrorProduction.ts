@@ -1,9 +1,9 @@
 import { Production } from "./Production";
 
 export class ErrorProduction extends Production {
-  error: string;
+  error: string; //错误描述
 
-  solution: string;
+  solution: string; //处理描述
 
   public getError(): string {
     return this.error;

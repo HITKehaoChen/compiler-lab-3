@@ -5,7 +5,7 @@ export class Symbol {
   name: string;
 
   /*private*/
-  type: string;
+  type: string; //N代表非终结符，T代表终结符
 
   /*private*/
   higher_name: string;

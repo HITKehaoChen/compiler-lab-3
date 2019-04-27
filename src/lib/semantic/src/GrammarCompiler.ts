@@ -11,9 +11,9 @@ export class GrammarCompiler {
 
   symbols: Array<Symbol>;
 
-  ids: Array<Id>;
+  ids: Array<Id>; //标识符表
 
-  codes: Array<string>;
+  codes: Array<string>; //三地址码
 
   public getIds(): Array<Id> {
     return this.ids;
@@ -403,8 +403,10 @@ export class GrammarCompiler {
     this.symbols.push(new Symbol(81, "#", "T"));
   }
 
+  // 获取first集
   public getFirst() {
     let flag: boolean = true;
+    //求first集（所有符号）
     while (flag) {
       {
         for (let i: number = 0; i < <number>this.productions.length; i++) {
@@ -429,17 +431,20 @@ export class GrammarCompiler {
                     }
                   }
                 }
+                //该符号不能推出空，则跳出循环
                 if (!this.canBeBlank(right[j])) break;
               }
             }
           }
         }
-        flag = !flag;
+        flag = !flag; //first集发生改变要重新循环，没发生改变则跳出
       }
     }
   }
 
+  // 获取follow集
   public getFollow() {
+    //求follow集（所有非终结符）
     let flag: boolean;
     this.getSymbol("S").follow.push("#");
     flag = true;
@@ -470,6 +475,7 @@ export class GrammarCompiler {
                     }
                   }
                 }
+                //right右边的串如果能推出空，则将left_symbol.follow并入right_symbol.follow
                 let blank: boolean = true;
                 for (let k: number = j + 1; k < right.length; k++) {
                   {
@@ -485,7 +491,7 @@ export class GrammarCompiler {
                             let element: string = rr_symbol.first[m];
                             if (!right_symbol.has("follow", element)) {
                               right_symbol.follow.push(element);
-                              flag = false;
+                              flag = false; //follow集发生改变
                             }
                           }
                         }
@@ -513,6 +519,7 @@ export class GrammarCompiler {
                 }
               }
             }
+            //对于每个产生式，左部符号的follow集要并到右部最后一个符号(如果是非终结符)的follow集中
             let last_symbol: Symbol = this.getSymbol(right[right.length - 1]);
             if (last_symbol.isTerminal()) continue;
             for (
@@ -530,12 +537,14 @@ export class GrammarCompiler {
             }
           }
         }
-        flag = !flag;
+        flag = !flag; //follow集发生改变要重新循环，没发生改变则跳出
       }
     }
   }
 
   public getSelect() {
+    //求select集（所有产生式）
+
     for (let i: number = 0; i < <number>this.productions.length; i++) {
       {
         let production: Production = this.productions[i];
@@ -552,7 +561,8 @@ export class GrammarCompiler {
         } else {
           let select: Array<string> = <any>[];
           let right: string[] = production.getRight();
-          let blank: boolean = true;
+
+          let blank: boolean = true; //产生式能推出空
           for (let j: number = 0; j < right.length; j++) {
             {
               let first: Array<string> = this.getSymbol(right[j]).first;
@@ -632,7 +642,9 @@ export class GrammarCompiler {
     }
     return false;
   }
-
+  // similar to canBeBlank(String name)
+  // 返回能使name推出空的一连串产生式的第一个
+  // 如果name不能推出空，返回null
   getProductionToBlank(name: string): Production {
     for (let i: number = 0; i < <number>this.productions.length; i++) {
       {
@@ -679,7 +691,7 @@ export class GrammarCompiler {
           })(temp.getName(), name)) return temp;
       }
     }
-    return null;
+    return null; //不在符号表中
   }
 
   getId(name: string): Id {
@@ -698,23 +710,29 @@ export class GrammarCompiler {
   }
 
   public analysis(token_list: Array<Token>): void {
-    let offset: number = 0;
-    let tno: number = 0;
-    let bno: number = 0;
+    let offset: number = 0; //标识符在内存中的偏移
+    let tmpNum: number = 0; //中间变量的index
+    let booleanNum: number = 0; //boolean 个数
+
     token_list.push(new Token("#", null));
-    let stack: Array<Symbol> = <any>[];
-    let node_stack: Array<Node> = <any>[];
-    let productionList: Array<Production> = <any>[];
+
+    let stack: Array<Symbol> = <any>[]; //符号栈 exact input
+    let nodeStack: Array<Node> = <any>[]; // 输入栈 only nonTerminals
+
+    let errorLists: Array<Production> = <any>[];
+
     stack.push(this.getSymbol("#"));
     stack.push(this.getSymbol("S"));
-    node_stack.push(new Node("S", null));
-    let pos: number = 0;
-    let line: number = 1;
+    nodeStack.push(new Node("S", null));
+
+    let pos: number = 0; //已匹配数目
+    let line: number = 1; //行号
     while (pos < <number>token_list.length) {
       {
         let token: Token = token_list[pos];
-        let input_symbol: Symbol = this.getSymbol(token.getName());
-        if (input_symbol == null) {
+        let inputSymbol: Symbol = this.getSymbol(token.getName());
+        if (inputSymbol == null) {
+          //该文法不能识别的输入符号
           if (<any>((o1: any, o2: any) => {
               if (o1 && o1.equals) {
                 return o1.equals(o2);
@@ -739,7 +757,7 @@ export class GrammarCompiler {
               "无法识别的单词'" + token.getSource() + "' at line " + line
             );
             err_pro.setSolution("跳过错误单词'" + token.getSource() + "'");
-            productionList.push(err_pro);
+            errorLists.push(err_pro);
           } else {
             let err_pro: ErrorProduction = new ErrorProduction(
               -1,
@@ -750,23 +768,24 @@ export class GrammarCompiler {
               "无法识别的输入符号'" + token.getName() + "' at line " + line
             );
             err_pro.setSolution("跳过输入符号'" + token.getName() + "'");
-            productionList.push(err_pro);
+            errorLists.push(err_pro);
           }
-          pos++;
+          pos++; //跳过
           continue;
         }
         let leftest: Symbol = null;
         let leftNode: Node = null;
         try {
           leftest = stack.pop();
-          if (!leftest.isTerminal()) leftNode = node_stack.pop();
+          if (!leftest.isTerminal()) leftNode = nodeStack.pop();
         } catch (e) {
           let err_pro: ErrorProduction = new ErrorProduction(-1, "#", "#");
           err_pro.setError("符号栈已空，输入栈仍然有字符存在");
           err_pro.setSolution("句法分析终止");
-          productionList.push(err_pro);
+          errorLists.push(err_pro);
           break;
         }
+        // leftest代表语义分析程序段的文法符号，leftNode.getFather()就代表它所在产生式的左部结点
         switch (leftest.getName()) {
           case "M68_2":
             leftNode.getFather().attribute["type"] = "char";
@@ -858,6 +877,7 @@ export class GrammarCompiler {
                 "length"
               ) != null
             ) {
+              // 定义语句中的数组
               let length: number = parseInt(
                 ((m, k) => (m[k] === undefined ? null : m[k]))(
                   father.attribute,
@@ -897,6 +917,7 @@ export class GrammarCompiler {
               }
               this.ids.push(id);
             } else {
+              //执行语句中的数组
               let name: string = ((m, k) => (m[k] === undefined ? null : m[k]))(
                 father.attribute,
                 "name"
@@ -955,7 +976,7 @@ export class GrammarCompiler {
                   }
                 })(type, "short")) offset *= 2;
               if (<number>id.arr_list.length) {
-                let t: string = "t" + tno++;
+                let t: string = "t" + tmpNum++;
                 this.codes.push(t + " := " + name + "[" + offset + "]");
                 father.attribute["value"] = t;
                 father.attribute["val"] = name + "[" + offset + "]";
@@ -1010,7 +1031,7 @@ export class GrammarCompiler {
           }
           case "M57_3": {
             let father: Node = leftNode.getFather();
-            let f1: string = "b" + bno++;
+            let f1: string = "b" + booleanNum++;
             let f2: string = ((m, k) => (m[k] === undefined ? null : m[k]))(
               father.sons[0].attribute,
               "value"
@@ -1021,7 +1042,7 @@ export class GrammarCompiler {
           }
           case "M58_3": {
             let father: Node = leftNode.getFather();
-            let f1: string = "t" + tno++;
+            let f1: string = "t" + tmpNum++;
             let f2: string = ((m, k) => (m[k] === undefined ? null : m[k]))(
               father.sons[0].attribute,
               "value"
@@ -1032,7 +1053,7 @@ export class GrammarCompiler {
           }
           case "M59_3": {
             let father: Node = leftNode.getFather();
-            let f1: string = "t" + tno++;
+            let f1: string = "t" + tmpNum++;
             let f2: string = ((m, k) => (m[k] === undefined ? null : m[k]))(
               father.sons[0].attribute,
               "value"
@@ -1043,7 +1064,7 @@ export class GrammarCompiler {
           }
           case "M84_3": {
             let father: Node = leftNode.getFather();
-            let f1: string = "t" + tno++;
+            let f1: string = "t" + tmpNum++;
             let f2: string = ((m, k) => (m[k] === undefined ? null : m[k]))(
               father.sons[0].attribute,
               "value"
@@ -1114,7 +1135,7 @@ export class GrammarCompiler {
               father.sons[0].attribute,
               "value"
             );
-            let t: string = "t" + tno++;
+            let t: string = "t" + tmpNum++;
             this.codes.push(t + " := " + inh + " * " + value);
             father.sons[1].attribute["value"] = t;
             break;
@@ -1129,7 +1150,7 @@ export class GrammarCompiler {
               father.sons[0].attribute,
               "value"
             );
-            let t: string = "t" + tno++;
+            let t: string = "t" + tmpNum++;
             this.codes.push(t + " := " + inh + " / " + value);
             father.sons[1].attribute["value"] = t;
             break;
@@ -1144,7 +1165,7 @@ export class GrammarCompiler {
               father.sons[0].attribute,
               "value"
             );
-            let t: string = "t" + tno++;
+            let t: string = "t" + tmpNum++;
             this.codes.push(t + " := " + inh + " % " + value);
             father.sons[1].attribute["value"] = t;
             break;
@@ -1159,7 +1180,7 @@ export class GrammarCompiler {
               father.sons[0].attribute,
               "value"
             );
-            let t: string = "t" + tno++;
+            let t: string = "t" + tmpNum++;
             this.codes.push(t + " := " + inh + " + " + value);
             father.sons[1].attribute["value"] = t;
             break;
@@ -1174,7 +1195,7 @@ export class GrammarCompiler {
               father.sons[0].attribute,
               "value"
             );
-            let t: string = "t" + tno++;
+            let t: string = "t" + tmpNum++;
             this.codes.push(t + " := " + inh + " - " + value);
             father.sons[1].attribute["value"] = t;
             break;
@@ -1203,7 +1224,7 @@ export class GrammarCompiler {
               father.sons[0].attribute,
               "value"
             );
-            let b: string = "b" + bno++;
+            let b: string = "b" + booleanNum++;
             this.codes.push(b + " := " + inh + " < " + value);
             father.attribute["value"] = b;
             break;
@@ -1218,7 +1239,7 @@ export class GrammarCompiler {
               father.sons[0].attribute,
               "value"
             );
-            let b: string = "b" + bno++;
+            let b: string = "b" + booleanNum++;
             this.codes.push(b + " := " + inh + " <= " + value);
             father.attribute["value"] = b;
             break;
@@ -1233,7 +1254,7 @@ export class GrammarCompiler {
               father.sons[0].attribute,
               "value"
             );
-            let b: string = "b" + bno++;
+            let b: string = "b" + booleanNum++;
             this.codes.push(b + " := " + inh + " > " + value);
             father.attribute["value"] = b;
             break;
@@ -1248,7 +1269,7 @@ export class GrammarCompiler {
               father.sons[0].attribute,
               "value"
             );
-            let b: string = "b" + bno++;
+            let b: string = "b" + booleanNum++;
             this.codes.push(b + " := " + inh + " >= " + value);
             father.attribute["value"] = b;
             break;
@@ -1263,7 +1284,7 @@ export class GrammarCompiler {
               father.sons[0].attribute,
               "value"
             );
-            let b: string = "b" + bno++;
+            let b: string = "b" + booleanNum++;
             this.codes.push(b + " := " + inh + " == " + value);
             father.attribute["value"] = b;
             break;
@@ -1278,7 +1299,7 @@ export class GrammarCompiler {
               father.sons[0].attribute,
               "value"
             );
-            let b: string = "b" + bno++;
+            let b: string = "b" + booleanNum++;
             this.codes.push(b + " := " + inh + " != " + value);
             father.attribute["value"] = b;
             break;
@@ -1461,7 +1482,7 @@ export class GrammarCompiler {
               } else {
                 return o1 === o2;
               }
-            })(leftest.getName(), input_symbol.getName())) {
+            })(leftest.getName(), inputSymbol.getName())) {
             pos++; // matched
           } else if (pos < <number>token_list.length - 1 && <any>((
               o1: any,
@@ -1482,15 +1503,15 @@ export class GrammarCompiler {
               "栈顶的终结符" +
                 leftest.getName() +
                 "与输入的终结符" +
-                input_symbol.getName() +
+                inputSymbol.getName() +
                 "不匹配" +
                 " at line " +
                 line
             );
             err_pro.setSolution(
-              "跳过输入的终结符" + input_symbol.getName() + "'"
+              "跳过输入的终结符" + inputSymbol.getName() + "'"
             );
-            productionList.push(err_pro);
+            errorLists.push(err_pro);
             pos++; //跳过一个输入
             stack.push(leftest); //栈顶终结符 压回
           } else {
@@ -1502,13 +1523,13 @@ export class GrammarCompiler {
               "栈顶的终结符'" +
                 leftest.getName() +
                 "'与输入的终结符'" +
-                input_symbol.getName() +
+                inputSymbol.getName() +
                 "'不匹配" +
                 " at line " +
                 line
             );
             err_pro.setSolution("弹出栈顶终结符'" + leftest.getName() + "'");
-            productionList.push(err_pro);
+            errorLists.push(err_pro);
           }
         } else {
           let pros: Array<Production> = this.getProductionsByLeft(
@@ -1518,9 +1539,9 @@ export class GrammarCompiler {
           for (let i: number = 0; i < <number>pros.length; i++) {
             {
               if (
-                pros[i].getSelect().indexOf(<any>input_symbol.getName()) >= 0
+                pros[i].getSelect().indexOf(<any>inputSymbol.getName()) >= 0
               ) {
-                productionList.push(pros[i]);
+                errorLists.push(pros[i]);
                 let right: string[] = pros[i].getRight();
                 for (let j: number = right.length - 1; j >= 0; j--) {
                   {
@@ -1535,7 +1556,7 @@ export class GrammarCompiler {
                         ) !== "M".charCodeAt(0)
                       )
                         leftNode.sons.splice(0, 0, node);
-                      node_stack.push(node);
+                      nodeStack.push(node);
                     }
                   }
                 }
@@ -1552,7 +1573,7 @@ export class GrammarCompiler {
                 "栈顶非终结符 '" +
                   leftest.getName() +
                   "' 不能接收输入的终结符 '" +
-                  input_symbol.getName() +
+                  inputSymbol.getName() +
                   "' at line " +
                   line
               );
@@ -1561,8 +1582,8 @@ export class GrammarCompiler {
                   leftest.getName() +
                   "' 推导为空的产生式，推迟错误处理"
               );
-              productionList.push(err_pro);
-            } else if (leftest.has("follow", input_symbol.getName())) {
+              errorLists.push(err_pro);
+            } else if (leftest.has("follow", inputSymbol.getName())) {
               let err_pro: ErrorProduction = new ErrorProduction(
                 -1,
                 leftest.getName()
@@ -1571,12 +1592,12 @@ export class GrammarCompiler {
                 "栈顶非终结符" +
                   leftest.getName() +
                   "不能接收输入的终结符" +
-                  input_symbol.getName() +
+                  inputSymbol.getName() +
                   "' at line " +
                   line
               );
               err_pro.setSolution("跳过栈顶非终结符" + leftest.getName() + "'");
-              productionList.push(err_pro);
+              errorLists.push(err_pro);
             } else {
               let err_pro: ErrorProduction = new ErrorProduction(
                 -1,
@@ -1587,16 +1608,16 @@ export class GrammarCompiler {
                 "栈顶非终结符'" +
                   leftest.getName() +
                   "' 不能接收输入的终结符'" +
-                  input_symbol.getName() +
+                  inputSymbol.getName() +
                   "' at line " +
                   line
               );
               err_pro.setSolution(
-                "跳过栈顶非终结符'" + input_symbol.getName() + "'"
+                "跳过栈顶非终结符'" + inputSymbol.getName() + "'"
               );
-              productionList.push(err_pro);
+              errorLists.push(err_pro);
               pos++;
-              stack.push(input_symbol);
+              stack.push(inputSymbol);
             }
           }
         }

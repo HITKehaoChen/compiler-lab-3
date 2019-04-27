@@ -23,8 +23,8 @@ export class Id {
     if (this.arr_list === undefined) this.arr_list = null;
     this.name = name;
     this.type = type;
-    this.offset = offset;
-    this.length = length;
+    this.offset = offset; //起始地址
+    this.length = length; //长度
     this.arr_list = <any>[];
   }
 
