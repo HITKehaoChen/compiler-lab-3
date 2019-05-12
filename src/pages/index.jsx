@@ -96,14 +96,12 @@ int main(){
     const res = codes.map((value, key) => ({ key, value }));
     this.setState({ codes: res });
 
-    const ids = gc
-      .getIds()
-      .map(id => ({
-        name: id.name,
-        type: id.type,
-        length: id.length,
-        memAddr: id.offset
-      }));
+    const ids = gc.getIds().map(id => ({
+      name: id.name,
+      type: id.type,
+      length: id.length,
+      memAddr: id.offset
+    }));
     this.setState({ ids });
   };
 
@@ -131,6 +129,10 @@ int main(){
         alert("Something wrong: " + e);
       });
   };
+
+  componentDidMount() {
+    this.run();
+  }
 
   render() {
     const { classes } = this.props;
